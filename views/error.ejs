@@ -1,0 +1,9 @@
+<%-include('./includes/header.ejs')%>
+<div class="container-fluid">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading"><%=err.message%></h4>
+        <p><%= err.stack %></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+<%-include('./includes/footer.ejs')%>

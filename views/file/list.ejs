@@ -1,0 +1,71 @@
+<%-include('../includes/header.ejs')%>
+
+    <div class="container-fluid">
+        <table class="table table-light table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Records</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(let file of files) { %>
+                    <tr>
+                        <td><a href="/file/<%=file._id%>" style="color: #000; text-decoration: none"><%=file.name%></a></td>
+                        <td><%=file.records%></td>
+                        <td><%=moment(file.uploadedAt).format('L')%> <%=moment(file.uploadedAt).format('LTS')%></td>
+                        <td><a style="color: red" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=file._id%>"><i class="fa-solid fa-trash-can"></i></a></td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<%=file._id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Delete <%=file.name%></h4>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="/file/delete/<%=file._id%>" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <td><a style="color: rgb(255, 191, 0)" href="#" data-bs-toggle="modal" data-bs-target="#editModal<%=file._id%>"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="editModal<%=file._id%>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit <%=file.name%></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/file/edit/<%=file._id%>" method="POST">
+                                        <div class="container-fluid mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" name="name" class="form-control" id="name" aria-describedby="location" value="<%= file.name %>">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mx-3">Update</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+<%-include('../includes/footer.ejs')%>

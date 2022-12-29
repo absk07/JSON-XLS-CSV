@@ -1,0 +1,35 @@
+<%-include('../includes/header.ejs')%>
+
+    <div class="container-fluid">
+        <section class="container-fluid d-flex bd-highlight">
+            <div class="me-auto p-2 bd-highlight"><a style="color: black;" href="/"><i class="fa-solid fa-chevron-left"></i></a></div>
+            <nav aria-label="breadcrumb" class="p-2 bd-highlight">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Selected Dataset: <span style="color: black"><%=file.filename%></span></li>
+                </ol>
+            </nav>
+        </section>
+        <table class="table table-light table-hover table-bordered">
+            <thead>
+                <% for (const data of parsedData) { %>
+                    <tr>
+                        <% for (const key in data) { %>
+                            <th scope="col"><%= key %></th>
+                        <% } %>
+                        <%break%>
+                    </tr>
+                <% } %>  
+            </thead>
+            <tbody>
+                <% for (const data of parsedData) { %>
+                    <tr>
+                        <% for (const key in data) { %>
+                          <td><%= data[key] %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+<%-include('../includes/footer.ejs')%>
